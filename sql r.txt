@@ -1,0 +1,154 @@
+create database dh;
+
+use dh;
+
+
+primary key -> not null + unqiue 
+
+create table city(
+	cityId integer primary key auto_increment,
+	cityName varchar(30)
+);
+
+desc city;
+
+insert into city (cityName) values ('ahd');
+
+insert into city (cityName) values ('surat');
+
+insert into city (cityName) values ('baroda');
+
+commit;
+
+
+
+select * from city;
+
+
+create table employee(
+	employeeId integer primary key auto_increment,
+	employeeName varchar(30),
+	salary float,
+	job varchar(30),
+	cityId integer,	
+	constraint fk_empl_city FOREIGN KEY (cityId) references city(cityId)
+	ON DELETE CASCADE 
+	ON UPDATE CASCADE 
+); 
+	
+
+desc employee;
+
+show tables;
+
+insert into employee (employeeName,salary,job,cityId) values ('ram',15000,'dev',1);
+
+insert into employee (employeeName,salary,job,cityId) values ('ravan',14000,'tester',1);
+insert into employee (employeeName,salary,job,cityId) values ('shyam',18000,'pm',1);
+insert into employee (employeeName,salary,job,cityId) values ('sita',16000,'designer',2);
+insert into employee (employeeName,salary,job,cityId) values ('laxman',15000,'dev',3);
+insert into employee (employeeName,salary,job,cityId) values ('hanuman',45000,'dev',2);
+insert into employee (employeeName,salary,job,cityId) values ('sugriv',12000,'dev',1);
+
+
+#where 
+
+select * from employee where job like 'dev';
+
+
+select * from employee where salary >= 15000;
+
+select * from employee where job like 'dev' and salary >= 15000;
+
+select * from employee where job like 'dev' or salary >= 15000;
+
+select * from employee where job like 'dev' or job like 'designer' or job like 'tester';
+
+select * from employee where job in  ('dev','designer','tester');
+
+delete from employee; remove all records 
+delete from employee where job like 'dev'; 
+
+truncate table employee; 
+
+
+1)
+delete command can be rollback 
+but truncate can not 
+
+2)
+delete can be delete on base of condition
+truncate remove all data - no condtion can be pass 
+
+update employee set salary = 20000 where salary = 15000;
+
+
+rename employee to employeeNew;
+
+
+select * from employee order by salary;
+
+select * from employee order by salary desc;
+
+select *,max(salary) from employee;
+
+
+
+
+select  max(salary) from employee group by job;	
+
+
+
+select  job,max(salary) from employee group by job ;
+
+
+
+
+select  job,max(salary) from employee group by job having job != 'dev' ;
+
+
+
+select employee.employeeName,city.cityName
+ from employee,city  where employee.cityId = city.cityId;
+
+
+select employee.employeeName,city.cityName
+ from employee inner join city  on employee.cityId = city.cityId ;
+
+
+insert into employee (employeeName,salary,job) values ('balaram',12000,'dev');
+
+
+
+select employee.employeeName,city.cityName
+ from employee left join city  on employee.cityId = city.cityId ;
+
+
+alter table city add pincode integer;
+
+alter table city modify pincode varchar(23);
+
+
+alter table city change column pincode pin1 varchar(23);
+
+
+alter table city rename to city_new; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
